@@ -35,14 +35,10 @@ function createHearts() {
 
 function renderDots() {
   dotsContainer.innerHTML = "";
-
   slideImages.forEach((_, index) => {
     const dot = document.createElement("span");
     dot.classList.add("dot");
-
-    if (index === currentIndex) {
-      dot.classList.add("active");
-    }
+    if (index === currentIndex) dot.classList.add("active");
 
     dot.addEventListener("click", () => {
       currentIndex = index;
@@ -58,8 +54,7 @@ function updateSlider() {
   const sliderWidth = slider.offsetWidth;
   slides.style.transform = `translateX(-${currentIndex * sliderWidth}px)`;
 
-  const allDots = document.querySelectorAll(".dot");
-  allDots.forEach((dot, index) => {
+  document.querySelectorAll(".dot").forEach((dot, index) => {
     dot.classList.toggle("active", index === currentIndex);
   });
 }
