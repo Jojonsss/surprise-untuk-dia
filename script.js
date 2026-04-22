@@ -7,12 +7,9 @@ const slides = document.getElementById("slides");
 const dotsContainer = document.getElementById("dots");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
+const slider = document.getElementById("slider");
 
-const slideImages = [
-  "foto1.jpeg",
-  "foto2.jpeg",
-  "foto3.jpeg"
-];
+const slideImages = ["foto1.jpeg", "foto2.jpeg", "foto3.jpeg"];
 
 let currentIndex = 0;
 let sliderInterval = null;
@@ -58,7 +55,7 @@ function renderDots() {
 }
 
 function updateSlider() {
-  const sliderWidth = document.getElementById("slider").offsetWidth;
+  const sliderWidth = slider.offsetWidth;
   slides.style.transform = `translateX(-${currentIndex * sliderWidth}px)`;
 
   const allDots = document.querySelectorAll(".dot");
@@ -107,12 +104,11 @@ function openSurprise() {
 
     openBtn.textContent = "Surprise Sudah Dibuka 🤍";
     openBtn.disabled = true;
-    openBtn.style.opacity = "0.75";
-    openBtn.style.cursor = "default";
   }, 900);
 }
 
 openBtn.addEventListener("click", openSurprise);
+
 nextBtn.addEventListener("click", () => {
   nextSlide();
   restartAutoSlide();
