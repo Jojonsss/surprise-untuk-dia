@@ -102,7 +102,7 @@ function openSurprise() {
       console.log("Autoplay diblok browser, user bisa klik play manual.");
     });
 
-    openBtn.textContent = "Surprise Sudah Dibuka 🤍";
+    openBtn.textContent = "Surat Sudah Dibuka 🤍";
     openBtn.disabled = true;
   }, 900);
 }
