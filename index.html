@@ -1,146 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For You ❤️</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surprise For You ❤️</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
 
-      body {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        overflow: hidden;
-        position: relative;
-      }
-
-      .card {
-        width: 90%;
-        max-width: 420px;
-        background: rgba(255, 255, 255, 0.18);
-        backdrop-filter: blur(10px);
-        border-radius: 25px;
-        padding: 30px 25px;
-        text-align: center;
-        color: white;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        z-index: 2;
-        animation: fadeIn 1.2s ease;
-      }
-
-      h1 {
-        font-size: 2rem;
-        margin-bottom: 15px;
-      }
-
-      p {
-        font-size: 1rem;
-        line-height: 1.7;
-        margin-bottom: 18px;
-      }
-
-      button {
-        background: white;
-        color: #ff4f81;
-        border: none;
-        padding: 12px 22px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: bold;
-        transition: 0.3s;
-      }
-
-      button:hover {
-        transform: scale(1.05);
-      }
-
-      .hidden {
-        display: none;
-      }
-
-      .message {
-        margin-top: 20px;
-        padding: 15px;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.15);
-        animation: fadeIn 1s ease;
-      }
-
-      .heart {
-        position: absolute;
-        top: -20px;
-        color: white;
-        font-size: 20px;
-        animation: fall linear forwards;
-        opacity: 0.8;
-      }
-
-      @keyframes fall {
-        to {
-          transform: translateY(110vh);
-          opacity: 0;
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>Hai Sayang ❤️</h1>
-      <p>
-        Aku bikin ini khusus buat kamu. Mungkin sederhana, tapi ini beneran dari
-        hati aku.
+  <main class="scene">
+    <section class="card">
+      <p class="top-text">A little surprise, made with love</p>
+      <h1>Untuk Kamu ❤️</h1>
+      <p class="subtitle">
+        Aku bikin ini khusus buat kamu. Klik amplopnya pelan-pelan yaa.
       </p>
 
-      <button onclick="bukaPesan()">Klik di sini 💌</button>
+      <div class="envelope-wrap" id="envelopeWrap">
+        <div class="envelope closed" id="envelope">
+          <div class="envelope-back"></div>
+          <div class="envelope-front"></div>
+          <div class="envelope-flap"></div>
 
-      <div id="pesanRahasia" class="hidden message">
-        <p>
-          Makasih ya udah hadir di hidup aku. Kamu itu hal manis yang selalu
-          bikin hari aku lebih indah. Aku sayang kamu 🤍
-        </p>
+          <div class="letter" id="letter">
+            <h2>Hai Sayang 💌</h2>
+            <p>
+              Makasih ya udah hadir di hidup aku. Mungkin ini sederhana,
+              tapi aku bikin ini dengan niat, dengan waktu, dan dengan rasa
+              yang tulus buat kamu.
+            </p>
+            <p>
+              Semoga setiap kali kamu buka ini, kamu inget kalau ada aku yang
+              selalu sayang, peduli, dan pengen bikin kamu senyum.
+            </p>
+            <p class="signature">— Dari aku, untuk kamu 🤍</p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <script>
-      function bukaPesan() {
-        document.getElementById("pesanRahasia").classList.remove("hidden");
-      }
+      <button id="openBtn" class="main-btn">Buka Surprise ✨</button>
 
-      function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤";
-        heart.style.left = Math.random() * window.innerWidth + "px";
-        heart.style.fontSize = Math.random() * 20 + 15 + "px";
-        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-        document.body.appendChild(heart);
+      <section class="surprise hidden" id="surpriseContent">
+        <div class="music-box">
+          <h3>Lagu Kita 🎵</h3>
+          <p class="mini-note">Kalau lagu belum bunyi, klik tombol play yaa.</p>
+          <audio id="bgMusic" controls loop>
+            <source src="lagu-kamu.mp3" type="audio/mpeg" />
+            Browser kamu belum support audio.
+          </audio>
+        </div>
 
-        setTimeout(() => {
-          heart.remove();
-        }, 5000);
-      }
+        <div class="slider-box">
+          <h3>Kenangan Kita 📸</h3>
+          <div class="slider" id="slider">
+            <div class="slides" id="slides">
+              <img src="foto1.jpeg" alt="Foto 1" />
+              <img src="foto2.jpeg" alt="Foto 2" />
+              <img src="foto3.jpeg" alt="Foto 3" />
+            </div>
 
-      setInterval(createHeart, 300);
-    </script>
-  </body>
+            <button class="nav prev" id="prevBtn" type="button">&#10094;</button>
+            <button class="nav next" id="nextBtn" type="button">&#10095;</button>
+          </div>
+
+          <div class="dots" id="dots"></div>
+        </div>
+
+        <div class="final-message">
+          <h3>Pesan Kecil 🤍</h3>
+          <p>
+            Aku nggak selalu jago ngomong langsung, jadi aku tuangin di sini.
+            Kamu berharga banget buat aku. Terima kasih udah jadi bagian
+            terindah di hari-hari aku.
+          </p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
 </html>
