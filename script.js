@@ -75,9 +75,7 @@ function prevSlide() {
 }
 
 function startAutoSlide() {
-  sliderInterval = setInterval(() => {
-    nextSlide();
-  }, 3000);
+  sliderInterval = setInterval(nextSlide, 3000);
 }
 
 function restartAutoSlide() {
@@ -89,7 +87,6 @@ function openSurprise() {
   if (surpriseOpened) return;
 
   surpriseOpened = true;
-  envelope.classList.remove("closed");
   envelope.classList.add("opened");
 
   setTimeout(() => {
@@ -104,7 +101,7 @@ function openSurprise() {
 
     openBtn.textContent = "Surat Sudah Dibuka 🤍";
     openBtn.disabled = true;
-  }, 900);
+  }, 850);
 }
 
 openBtn.addEventListener("click", openSurprise);
