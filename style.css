@@ -54,12 +54,12 @@ h1 {
   margin: 0 auto 18px;
 }
 
-/* Envelope */
+/* Envelope aman */
 .envelope-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 290px;
+  min-height: 280px;
   margin: 18px 0 20px;
 }
 
@@ -72,30 +72,34 @@ h1 {
 .letter {
   position: absolute;
   left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%) translateY(42px);
+  bottom: 30px;
+  transform: translateX(-50%) translateY(78px);
   width: 80%;
-  height: 170px;
+  height: 165px;
   background: #fffdfd;
   color: #6f5258;
-  border-radius: 18px 18px 12px 12px;
-  padding: 16px 14px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  border-radius: 16px;
+  padding: 14px 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
   z-index: 1;
   transition: transform 0.85s ease;
   overflow: hidden;
 }
 
+.envelope.opened .letter {
+  transform: translateX(-50%) translateY(-30px);
+}
+
 .letter h2 {
-  font-size: 1.08rem;
+  font-size: 1.04rem;
   line-height: 1.35;
   margin-bottom: 8px;
   color: #d85d86;
 }
 
 .letter p {
-  font-size: 0.84rem;
-  line-height: 1.5;
+  font-size: 0.82rem;
+  line-height: 1.48;
   margin-bottom: 7px;
 }
 
@@ -104,70 +108,43 @@ h1 {
   color: #c54f74;
 }
 
-.env-back {
+.envelope-body {
   position: absolute;
   inset: 0;
-  background: #f7b5c2;
+  background: #f4b2c0;
   border-radius: 0 0 22px 22px;
   z-index: 2;
 }
 
-.env-pocket {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 68%;
-  background: #e694a9;
-  clip-path: polygon(0 0, 50% 48%, 100% 0, 100% 100%, 0 100%);
-  border-radius: 0 0 22px 22px;
-  z-index: 4;
-}
-
-.env-pocket::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 50%;
-  height: 100%;
-  background: #f0aebe;
-  clip-path: polygon(0 0, 100% 48%, 0 100%);
-}
-
-.env-pocket::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 50%;
-  height: 100%;
-  background: #ebb0bf;
-  clip-path: polygon(100% 0, 0 48%, 100% 100%);
-}
-
-.env-flap {
+.envelope-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 52%;
-  background: #e8bcc8;
+  background: #e5b4c2;
   clip-path: polygon(0 0, 50% 100%, 100% 0);
   transform-origin: top center;
   transition: transform 0.85s ease;
   z-index: 5;
 }
 
-.envelope.opened .env-flap {
+.envelope.opened .envelope-top {
   transform: rotateX(180deg);
 }
 
-.envelope.opened .letter {
-  transform: translateX(-50%) translateY(-52px);
+.envelope-cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68%;
+  background: #e292a8;
+  clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+  border-radius: 0 0 22px 22px;
+  z-index: 4;
 }
 
-/* Button */
 .main-btn {
   border: none;
   background: #fff;
@@ -196,7 +173,6 @@ h1 {
   cursor: default;
 }
 
-/* Surprise section */
 .hidden {
   display: none;
 }
@@ -233,7 +209,6 @@ audio {
   max-width: 380px;
 }
 
-/* Slider */
 .slider {
   position: relative;
   width: 100%;
@@ -271,20 +246,10 @@ audio {
   color: #d84f7c;
   font-size: 1.4rem;
   cursor: pointer;
-  transition: 0.25s ease;
 }
 
-.nav:hover {
-  background: #fff;
-}
-
-.prev {
-  left: 10px;
-}
-
-.next {
-  right: 10px;
-}
+.prev { left: 10px; }
+.next { right: 10px; }
 
 .dots {
   display: flex;
@@ -313,7 +278,6 @@ audio {
   line-height: 1.7;
 }
 
-/* Floating hearts */
 .hearts {
   position: fixed;
   inset: 0;
@@ -352,7 +316,6 @@ audio {
   }
 }
 
-/* Mobile */
 @media (max-width: 640px) {
   .card {
     padding: 24px 16px;
@@ -368,7 +331,7 @@ audio {
   }
 
   .envelope-wrap {
-    min-height: 255px;
+    min-height: 235px;
   }
 
   .envelope {
@@ -378,22 +341,22 @@ audio {
 
   .letter {
     width: 80%;
-    height: 150px;
-    transform: translateX(-50%) translateY(34px);
-    padding: 13px 11px;
+    height: 145px;
+    transform: translateX(-50%) translateY(68px);
+    padding: 12px 11px;
   }
 
   .envelope.opened .letter {
-    transform: translateX(-50%) translateY(-40px);
+    transform: translateX(-50%) translateY(-22px);
   }
 
   .letter h2 {
-    font-size: 0.96rem;
+    font-size: 0.95rem;
   }
 
   .letter p {
-    font-size: 0.76rem;
-    line-height: 1.38;
+    font-size: 0.75rem;
+    line-height: 1.35;
   }
 
   .slides img {
