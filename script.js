@@ -1,106 +1,128 @@
-const envelope = document.getElementById("envelope");
 const openBtn = document.getElementById("openBtn");
+const envelope = document.getElementById("envelope");
 const surpriseContent = document.getElementById("surpriseContent");
 const bgMusic = document.getElementById("bgMusic");
 
-let isOpen = false;
-
-function openSurprise() {
-  if (isOpen) return;
-  isOpen = true;
-
-  envelope.classList.add("open");
-  openBtn.textContent = "Surprise Dibuka 💖";
-
-  setTimeout(() => {
-    surpriseContent.classList.remove("hidden");
-    try {
-      bgMusic.play();
-    } catch (e) {}
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth"
-    });
-  }, 950);
-}
-
-openBtn.addEventListener("click", openSurprise);
-envelope.addEventListener("click", openSurprise);
-
-// slider
 const slides = document.getElementById("slides");
-const images = slides.querySelectorAll("img");
+const dotsContainer = document.getElementById("dots");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
-const dotsWrap = document.getElementById("dots");
+
+const slideImages = [
+  "foto1.jpeg",
+  "foto2.jpeg",
+  "foto3.jpeg"
+];
 
 let currentIndex = 0;
-let autoSlide;
+let sliderInterval = null;
+let surpriseOpened = false;
 
-images.forEach((_, index) => {
-  const dot = document.createElement("button");
-  dot.className = "dot" + (index === 0 ? " active" : "");
-  dot.addEventListener("click", () => goToSlide(index));
-  dotsWrap.appendChild(dot);
-});
+function createHearts() {
+  const heartsContainer = document.getElementById("hearts");
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 18 + 16 + "px";
+    heart.style.animationDuration = Math.random() * 4 + 4 + "s";
+    heartsContainer.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 8000);
+  }, 500);
+}
+
+function renderDots() {
+  dotsContainer.innerHTML = "";
+
+  slideImages.forEach((_, index) => {
+    const dot = document.createElement("span");
+    dot.classList.add("dot");
+
+    if (index === currentIndex) {
+      dot.classList.add("active");
+    }
+
+    dot.addEventListener("click", () => {
+      currentIndex = index;
+      updateSlider();
+      restartAutoSlide();
+    });
+
+    dotsContainer.appendChild(dot);
+  });
+}
 
 function updateSlider() {
-  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-  document.querySelectorAll(".dot").forEach((dot, index) => {
+  const sliderWidth = document.getElementById("slider").offsetWidth;
+  slides.style.transform = `translateX(-${currentIndex * sliderWidth}px)`;
+
+  const allDots = document.querySelectorAll(".dot");
+  allDots.forEach((dot, index) => {
     dot.classList.toggle("active", index === currentIndex);
   });
 }
 
-function goToSlide(index) {
-  currentIndex = index;
-  updateSlider();
-  resetAutoSlide();
-}
-
 function nextSlide() {
-  currentIndex = (currentIndex + 1) % images.length;
+  currentIndex = (currentIndex + 1) % slideImages.length;
   updateSlider();
 }
 
 function prevSlide() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  currentIndex = (currentIndex - 1 + slideImages.length) % slideImages.length;
   updateSlider();
 }
 
+function startAutoSlide() {
+  sliderInterval = setInterval(() => {
+    nextSlide();
+  }, 3000);
+}
+
+function restartAutoSlide() {
+  clearInterval(sliderInterval);
+  startAutoSlide();
+}
+
+function openSurprise() {
+  if (surpriseOpened) return;
+
+  surpriseOpened = true;
+  envelope.classList.remove("closed");
+  envelope.classList.add("opened");
+
+  setTimeout(() => {
+    surpriseContent.classList.remove("hidden");
+    renderDots();
+    updateSlider();
+    startAutoSlide();
+
+    bgMusic.play().catch(() => {
+      console.log("Autoplay diblok browser, user bisa klik play manual.");
+    });
+
+    openBtn.textContent = "Surprise Sudah Dibuka 🤍";
+    openBtn.disabled = true;
+    openBtn.style.opacity = "0.75";
+    openBtn.style.cursor = "default";
+  }, 900);
+}
+
+openBtn.addEventListener("click", openSurprise);
 nextBtn.addEventListener("click", () => {
   nextSlide();
-  resetAutoSlide();
+  restartAutoSlide();
 });
 
 prevBtn.addEventListener("click", () => {
   prevSlide();
-  resetAutoSlide();
+  restartAutoSlide();
 });
 
-function startAutoSlide() {
-  autoSlide = setInterval(nextSlide, 3500);
-}
+window.addEventListener("resize", updateSlider);
 
-function resetAutoSlide() {
-  clearInterval(autoSlide);
-  startAutoSlide();
-}
-
-startAutoSlide();
-
-// floating hearts
-const heartsContainer = document.getElementById("hearts");
-
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = Math.random() > 0.5 ? "❤" : "♡";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = 16 + Math.random() * 24 + "px";
-  heart.style.animationDuration = 5 + Math.random() * 6 + "s";
-  heartsContainer.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 11000);
-}
-
-setInterval(createHeart, 420);
+createHearts();
