@@ -1,3 +1,4 @@
+alert("script jalan");
 const openBtn = document.getElementById("openBtn");
 const envelope = document.getElementById("envelope");
 const surpriseContent = document.getElementById("surpriseContent");
